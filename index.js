@@ -147,13 +147,15 @@ class Instructor extends Lambdasian{
     this.specialty = attributes.specialty;
     this.favLanguage = attributes.favLanguage;
     this.catchPhrase = attributes.catchPhrase;
-
+    this.randomGrade = 50;
   }
   demo(subject){
       return `Today we are learning about ${subject}`
   }
   grade(student, subject){
-    return `${student.name} receives a perfect score on ${subject}`
+    let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    let score = plusOrMinus *10;
+    return `${student.name} receives a ${score}% on ${subject}`
   }
 }
 
@@ -178,6 +180,7 @@ class Student extends Lambdasian {
     this.previousBackground = attributes.previousBackground;
     this.className = attributes.className;
     this.favSubjects = attributes.favSubjects;
+    this.grade = 50;
   }
   listSubjects(){
     return this.favSubjects.join();
@@ -187,6 +190,14 @@ class Student extends Lambdasian {
   }
   sprintChallenge(subject){
     return `${this.name} has begun sprint challenge on ${subject}`
+  }
+  graduate(instructorName){
+    if(this.grade > 70){
+      return "You graduated!"
+    }
+    else{
+      instructorName.grade(this, this.favSubjects);
+    }
   }
 }
 
@@ -210,10 +221,10 @@ class ProjectManager extends Instructor{
     this.favInstructor = attributes.favInstructor;
   }
   standUp(channel){
-    return `${this.name} announces to ${channel}, @channel standy times!`
+    return `${this.name} announces to ${channel}, @channel standy times!`;
   }
   debugsCode(student, subject){
-    return `${this.name} debugs ${student.name}'s code on ${subject}`
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
   }
 }
 
